@@ -10,7 +10,6 @@ import {
   BrainCircuit,
   ChartNoAxesCombined
 } from 'lucide-react'
-
 import './App.css'
 import CustomerChurn from './pages/CustomerChurn'
 import EcommerceCaseStudy from './pages/EcommerceCaseStudy'
@@ -40,9 +39,9 @@ const projects = [
   {
     number: '03',
     title: 'Enterprise AI Knowledge Assistant',
-    category: 'ARTIFICIAL INTELLIGENCE',
-    description: 'An AI-powered document question-answering system using Retrieval-Augmented Generation to retrieve information from PDF and TXT documents.',
-    stack: ['Python', 'LangChain', 'RAG', 'FAISS', 'Hugging Face', 'Groq', 'FastAPI', 'Streamlit'],
+    category: 'GENERATIVE AI',
+    description: 'A Retrieval-Augmented Generation (RAG) application that lets users upload documents and ask questions with context-grounded answers and source references.',
+    stack: ['Python', 'LangChain', 'FAISS', 'Groq', 'Streamlit', 'FastAPI'],
     icon: BrainCircuit,
     status: 'GITHUB',
     url: 'https://github.com/arjunajai221-a11y/Enterprise_AI_Knowledge_Assistant'
@@ -70,16 +69,10 @@ const projects = [
 ]
 
 const skills = [
-  'PYTHON',
-  'PANDAS',
-  'NUMPY',
-  'SQL',
-  'DATA ANALYTICS',
-  'DATA SCIENCE',
-  'SCIKIT-LEARN',
-  'STREAMLIT',
-  'MATPLOTLIB',
-  'POWER BI'
+  'PYTHON', 'PANDAS', 'NUMPY', 'SQL',
+  'DATA ANALYTICS', 'DATA SCIENCE',
+  'SCIKIT-LEARN', 'STREAMLIT',
+  'MATPLOTLIB', 'POWER BI'
 ]
 
 function App() {
@@ -87,17 +80,9 @@ function App() {
   const [showEcommerce, setShowEcommerce] = useState(false)
   const [showExpense, setShowExpense] = useState(false)
 
-  if (showChurn) {
-    return <CustomerChurn onBack={() => setShowChurn(false)} />
-  }
-
-  if (showEcommerce) {
-    return <EcommerceCaseStudy onBack={() => setShowEcommerce(false)} />
-  }
-
-  if (showExpense) {
-    return <ExpenseCaseStudy onBack={() => setShowExpense(false)} />
-  }
+  if (showChurn) return <CustomerChurn onBack={() => setShowChurn(false)} />
+  if (showEcommerce) return <EcommerceCaseStudy onBack={() => setShowEcommerce(false)} />
+  if (showExpense) return <ExpenseCaseStudy onBack={() => setShowExpense(false)} />
 
   return (
     <main>
@@ -204,13 +189,11 @@ function App() {
               I'm Arjun Ajai, a Computer Science graduate from Kerala, India,
               with a background in Data Science with AI.
             </p>
-
             <p>
               I enjoy working with Python, exploring datasets, discovering
               patterns and turning information into meaningful insights.
               I'm continuously learning and building practical projects.
             </p>
-
             <a href="#contact" className="text-link">
               LET'S CONNECT <ArrowUpRight size={16} />
             </a>
@@ -256,93 +239,95 @@ function App() {
         </div>
 
         <div className="projects-intro">
-          <h2>
-            Ideas into<br />
-            <span>working projects.</span>
-          </h2>
-
+          <h2>Ideas into<br /><span>working projects.</span></h2>
           <p>
-            Practical explorations in data analytics, data science,
-            artificial intelligence and Python development.
+            Practical explorations in data analytics, data science
+            and Python development.
           </p>
         </div>
 
         <div className="project-grid">
-          {projects.filter(project =>
-            ['01', '02', '03'].includes(project.number)
-          ).map((project, index) => {
-            const Icon = project.icon
+          {projects
+            .filter(project => ['01', '02', '03'].includes(project.number))
+            .map((project, index) => {
+              const Icon = project.icon
 
-            return (
-              <motion.article
-                className="project-card"
-                key={project.number}
-                initial={{ opacity: 0, y: 25 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-              >
-                <div className="project-top">
-                  <span>{project.number} / {project.category}</span>
-                  <span className="project-status">{project.status}</span>
-                </div>
+              return (
+                <motion.article
+                  className="project-card"
+                  key={project.number}
+                  initial={{ opacity: 0, y: 25 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                >
+                  <div className="project-top">
+                    <span>{project.number} / {project.category}</span>
+                    <span className="project-status">{project.status}</span>
+                  </div>
 
-                <div className="project-visual">
+                  <div className="project-visual">
+                    {project.number === '01' ? (
+                      <img
+                        src="/images/churn/model_comparison.png"
+                        alt="Customer Churn Prediction model comparison chart"
+                        className="project-screenshot"
+                      />
+                    ) : project.number === '02' ? (
+                      <img
+                        src="/images/ecommerce/dashboard_overview.png"
+                        alt="Ecommerce Intelligence dashboard"
+                        className="project-screenshot"
+                      />
+                    ) : project.number === '03' ? (
+                      <img
+                        src="/images/ai/enterprise-ai.png"
+                        alt="Enterprise AI Knowledge Assistant interface"
+                        className="project-screenshot"
+                      />
+                    ) : (
+                      <Icon size={54} strokeWidth={1} />
+                    )}
+
+                    <span className="visual-number">{project.number}</span>
+                  </div>
+
+                  <h3>{project.title}</h3>
+                  <p>{project.description}</p>
+
+                  <div className="project-tags">
+                    {project.stack.map(tag => (
+                      <span key={tag}>{tag}</span>
+                    ))}
+                  </div>
+
                   {project.number === '01' ? (
-                    <img
-                      src="/images/churn/model_comparison.png"
-                      alt="Customer Churn Prediction model comparison chart"
-                      className="project-screenshot"
-                    />
+                    <button
+                      className="project-view-link"
+                      onClick={() => setShowChurn(true)}
+                    >
+                      VIEW PROJECT <ArrowUpRight size={16} />
+                    </button>
                   ) : project.number === '02' ? (
-                    <img
-                      src="/images/ecommerce/dashboard_overview.png"
-                      alt="Ecommerce Intelligence dashboard"
-                      className="project-screenshot"
-                    />
+                    <button
+                      className="project-view-link"
+                      onClick={() => setShowEcommerce(true)}
+                    >
+                      VIEW PROJECT <ArrowUpRight size={16} />
+                    </button>
                   ) : (
-                    <Icon size={54} strokeWidth={1} />
+                    <a
+                      className="project-view-link"
+                      href={project.url}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      VIEW PROJECT <ArrowUpRight size={16} />
+                    </a>
                   )}
-
-                  <span className="visual-number">{project.number}</span>
-                </div>
-
-                <h3>{project.title}</h3>
-                <p>{project.description}</p>
-
-                <div className="project-tags">
-                  {project.stack.map(tag => (
-                    <span key={tag}>{tag}</span>
-                  ))}
-                </div>
-
-                {project.number === '01' ? (
-                  <button
-                    className="project-view-link"
-                    onClick={() => setShowChurn(true)}
-                  >
-                    VIEW PROJECT <ArrowUpRight size={16} />
-                  </button>
-                ) : project.number === '02' ? (
-                  <button
-                    className="project-view-link"
-                    onClick={() => setShowEcommerce(true)}
-                  >
-                    VIEW PROJECT <ArrowUpRight size={16} />
-                  </button>
-                ) : (
-                  <a
-                    className="project-view-link"
-                    href={project.url}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    VIEW PROJECT <ArrowUpRight size={16} />
-                  </a>
-                )}
-              </motion.article>
-            )
-          })}
+                </motion.article>
+              )
+            })}
         </div>
 
         <p className="project-note">
@@ -356,10 +341,7 @@ function App() {
           <span className="section-caption">TECHNOLOGIES & KNOWLEDGE</span>
         </div>
 
-        <h2>
-          Tools of my<br />
-          <span>trade.</span>
-        </h2>
+        <h2>Tools of my<br /><span>trade.</span></h2>
 
         <div className="skills-list">
           {skills.map((skill, index) => (
@@ -379,11 +361,7 @@ function App() {
         </div>
 
         <p className="contact-kicker">LET'S START A CONVERSATION</p>
-
-        <h2>
-          Let's make<br />
-          <span>something matter.</span>
-        </h2>
+        <h2>Let's make<br /><span>something matter.</span></h2>
 
         <a
           className="contact-link"
@@ -402,11 +380,9 @@ function App() {
           >
             <Code2 size={17} /> GITHUB
           </a>
-
           <a href="#contact">
             <Code2 size={17} /> LINKEDIN
           </a>
-
           <a href="mailto:">
             <Mail size={17} /> EMAIL
           </a>
@@ -431,22 +407,3 @@ function App() {
 }
 
 export default App
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
