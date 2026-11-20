@@ -10,10 +10,12 @@ import {
   BrainCircuit,
   ChartNoAxesCombined
 } from 'lucide-react'
+
 import './App.css'
 import CustomerChurn from './pages/CustomerChurn'
 import EcommerceCaseStudy from './pages/EcommerceCaseStudy'
 import ExpenseCaseStudy from './pages/ExpenseCaseStudy'
+import EnterpriseAI from './pages/EnterpriseAI'
 
 const projects = [
   {
@@ -79,10 +81,23 @@ function App() {
   const [showChurn, setShowChurn] = useState(false)
   const [showEcommerce, setShowEcommerce] = useState(false)
   const [showExpense, setShowExpense] = useState(false)
+  const [showEnterpriseAI, setShowEnterpriseAI] = useState(false)
 
-  if (showChurn) return <CustomerChurn onBack={() => setShowChurn(false)} />
-  if (showEcommerce) return <EcommerceCaseStudy onBack={() => setShowEcommerce(false)} />
-  if (showExpense) return <ExpenseCaseStudy onBack={() => setShowExpense(false)} />
+  if (showChurn) {
+    return <CustomerChurn onBack={() => setShowChurn(false)} />
+  }
+
+  if (showEcommerce) {
+    return <EcommerceCaseStudy onBack={() => setShowEcommerce(false)} />
+  }
+
+  if (showExpense) {
+    return <ExpenseCaseStudy onBack={() => setShowExpense(false)} />
+  }
+
+  if (showEnterpriseAI) {
+    return <EnterpriseAI onBack={() => setShowEnterpriseAI(false)} />
+  }
 
   return (
     <main>
@@ -250,8 +265,6 @@ function App() {
           {projects
             .filter(project => ['01', '02', '03'].includes(project.number))
             .map((project, index) => {
-              const Icon = project.icon
-
               return (
                 <motion.article
                   className="project-card"
@@ -279,14 +292,12 @@ function App() {
                         alt="Ecommerce Intelligence dashboard"
                         className="project-screenshot"
                       />
-                    ) : project.number === '03' ? (
+                    ) : (
                       <img
                         src="/images/ai/enterprise-ai.png"
                         alt="Enterprise AI Knowledge Assistant interface"
                         className="project-screenshot"
                       />
-                    ) : (
-                      <Icon size={54} strokeWidth={1} />
                     )}
 
                     <span className="visual-number">{project.number}</span>
@@ -316,14 +327,12 @@ function App() {
                       VIEW PROJECT <ArrowUpRight size={16} />
                     </button>
                   ) : (
-                    <a
+                    <button
                       className="project-view-link"
-                      href={project.url}
-                      target="_blank"
-                      rel="noreferrer"
+                      onClick={() => setShowEnterpriseAI(true)}
                     >
                       VIEW PROJECT <ArrowUpRight size={16} />
-                    </a>
+                    </button>
                   )}
                 </motion.article>
               )
