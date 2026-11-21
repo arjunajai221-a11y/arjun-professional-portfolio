@@ -1,4 +1,4 @@
-﻿
+
 import { useState } from 'react'
 import { motion } from 'motion/react'
 import {
@@ -16,6 +16,7 @@ import CustomerChurn from './pages/CustomerChurn'
 import EcommerceCaseStudy from './pages/EcommerceCaseStudy'
 import ExpenseCaseStudy from './pages/ExpenseCaseStudy'
 import EnterpriseAI from './pages/EnterpriseAI'
+import DataEngineering from './pages/DataEngineering'
 
 const projects = [
   {
@@ -50,13 +51,13 @@ const projects = [
   },
   {
     number: '04',
-    title: 'Smart Expense Manager',
-    category: 'PYTHON DEVELOPMENT',
-    description: 'A Python-based personal expense management system.',
-    stack: ['Python'],
+    title: 'Scalable Data Engineering Pipeline',
+    category: 'DATA ENGINEERING',
+    description: 'An end-to-end ETL pipeline processing over one million retail transactions using PySpark, MySQL, Apache Airflow and Docker.',
+    stack: ['Python', 'PySpark', 'MySQL', 'Apache Airflow', 'Docker', 'SQL', 'Parquet'],
     icon: Database,
     status: 'GITHUB',
-    url: 'https://github.com/arjunajai221-a11y/Smart-Expense-Manager'
+    url: 'https://github.com/arjunajai221-a11y/Scalable_Data_Engineering_Pipeline'
   },
   {
     number: '05',
@@ -82,6 +83,7 @@ function App() {
   const [showEcommerce, setShowEcommerce] = useState(false)
   const [showExpense, setShowExpense] = useState(false)
   const [showEnterpriseAI, setShowEnterpriseAI] = useState(false)
+  const [showDataEngineering, setShowDataEngineering] = useState(false)
 
   if (showChurn) {
     return <CustomerChurn onBack={() => setShowChurn(false)} />
@@ -97,6 +99,10 @@ function App() {
 
   if (showEnterpriseAI) {
     return <EnterpriseAI onBack={() => setShowEnterpriseAI(false)} />
+  }
+
+  if (showDataEngineering) {
+    return <DataEngineering onBack={() => setShowDataEngineering(false)} />
   }
 
   return (
@@ -263,7 +269,7 @@ function App() {
 
         <div className="project-grid">
           {projects
-            .filter(project => ['01', '02', '03'].includes(project.number))
+            .filter(project => ['01', '02', '03', '04'].includes(project.number))
             .map((project, index) => {
               return (
                 <motion.article
@@ -292,10 +298,16 @@ function App() {
                         alt="Ecommerce Intelligence dashboard"
                         className="project-screenshot"
                       />
-                    ) : (
+                    ) : project.number === '03' ? (
                       <img
                         src="/images/ai/enterprise-ai.png"
                         alt="Enterprise AI Knowledge Assistant interface"
+                        className="project-screenshot"
+                      />
+                    ) : (
+                      <img
+                        src="/images/data-engineering/pipeline_architecture.png"
+                        alt="Scalable Data Engineering Pipeline architecture"
                         className="project-screenshot"
                       />
                     )}
@@ -326,10 +338,17 @@ function App() {
                     >
                       VIEW PROJECT <ArrowUpRight size={16} />
                     </button>
-                  ) : (
+                  ) : project.number === '03' ? (
                     <button
                       className="project-view-link"
                       onClick={() => setShowEnterpriseAI(true)}
+                    >
+                      VIEW PROJECT <ArrowUpRight size={16} />
+                    </button>
+                  ) : (
+                    <button
+                      className="project-view-link"
+                      onClick={() => setShowDataEngineering(true)}
                     >
                       VIEW PROJECT <ArrowUpRight size={16} />
                     </button>
