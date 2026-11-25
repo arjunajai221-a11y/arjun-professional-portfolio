@@ -1,4 +1,4 @@
-
+﻿
 import { useState } from 'react'
 import { motion } from 'motion/react'
 import {
@@ -17,6 +17,7 @@ import EcommerceCaseStudy from './pages/EcommerceCaseStudy'
 import ExpenseCaseStudy from './pages/ExpenseCaseStudy'
 import EnterpriseAI from './pages/EnterpriseAI'
 import DataEngineering from './pages/DataEngineering'
+import DomainSpecificLLM from './pages/DomainSpecificLLM'
 
 const projects = [
   {
@@ -61,13 +62,13 @@ const projects = [
   },
   {
     number: '05',
-    title: 'Quiz App',
-    category: 'WEB DEVELOPMENT',
-    description: 'A simple interactive quiz application built using HTML, CSS and JavaScript.',
-    stack: ['HTML', 'CSS', 'JavaScript'],
-    icon: Code2,
+    title: 'Domain-Specific LLM Fine-Tuning',
+    category: 'GENERATIVE AI',
+    description: 'A parameter-efficient LLM fine-tuning project using LoRA, with model evaluation, MLflow experiment tracking and an interactive Streamlit application.',
+    stack: ['Python', 'PyTorch', 'Transformers', 'PEFT / LoRA', 'MLflow', 'Streamlit'],
+    icon: BrainCircuit,
     status: 'GITHUB',
-    url: 'https://github.com/arjunajai221-a11y/quiz-app-arjun-2026'
+    url: 'https://github.com/arjunajai221-a11y/Domain-Specific-LLM-Fine-Tuning'
   }
 ]
 
@@ -84,6 +85,7 @@ function App() {
   const [showExpense, setShowExpense] = useState(false)
   const [showEnterpriseAI, setShowEnterpriseAI] = useState(false)
   const [showDataEngineering, setShowDataEngineering] = useState(false)
+  const [showDomainLLM, setShowDomainLLM] = useState(false)
 
   if (showChurn) {
     return <CustomerChurn onBack={() => setShowChurn(false)} />
@@ -103,6 +105,10 @@ function App() {
 
   if (showDataEngineering) {
     return <DataEngineering onBack={() => setShowDataEngineering(false)} />
+  }
+
+  if (showDomainLLM) {
+    return <DomainSpecificLLM onBack={() => setShowDomainLLM(false)} />
   }
 
   return (
@@ -169,7 +175,7 @@ function App() {
           >
             <p>
               COMPUTER SCIENCE GRADUATE<br />
-              DATA ANALYTICS · DATA SCIENCE · PYTHON
+              DATA ANALYTICS Â· DATA SCIENCE Â· PYTHON
             </p>
 
             <a href="#projects" className="explore-link">
@@ -189,7 +195,7 @@ function App() {
         </div>
 
         <div className="hero-side-note">PORTFOLIO / 2026</div>
-        <div className="hero-index">01 — 05</div>
+        <div className="hero-index">01 â€” 05</div>
       </section>
 
       <section className="about section" id="about">
@@ -224,7 +230,7 @@ function App() {
         <div className="about-meta">
           <div><span>BASED IN</span><strong>KERALA, INDIA</strong></div>
           <div><span>FOCUS</span><strong>DATA & TECHNOLOGY</strong></div>
-          <div><span>APPROACH</span><strong>LEARN · BUILD · IMPROVE</strong></div>
+          <div><span>APPROACH</span><strong>LEARN Â· BUILD Â· IMPROVE</strong></div>
         </div>
       </section>
 
@@ -269,7 +275,7 @@ function App() {
 
         <div className="project-grid">
           {projects
-            .filter(project => ['01', '02', '03', '04'].includes(project.number))
+            .filter(project => ['01', '02', '03', '04', '05'].includes(project.number))
             .map((project, index) => {
               return (
                 <motion.article
@@ -304,10 +310,16 @@ function App() {
                         alt="Enterprise AI Knowledge Assistant interface"
                         className="project-screenshot"
                       />
-                    ) : (
+                    ) : project.number === '04' ? (
                       <img
                         src="/images/data-engineering/pipeline_architecture.png"
                         alt="Scalable Data Engineering Pipeline architecture"
+                        className="project-screenshot"
+                      />
+                    ) : (
+                      <img
+                        src="/images/llm/streamlit_app.png"
+                        alt="Domain-Specific LLM application"
                         className="project-screenshot"
                       />
                     )}
@@ -345,10 +357,17 @@ function App() {
                     >
                       VIEW PROJECT <ArrowUpRight size={16} />
                     </button>
-                  ) : (
+                  ) : project.number === '04' ? (
                     <button
                       className="project-view-link"
                       onClick={() => setShowDataEngineering(true)}
+                    >
+                      VIEW PROJECT <ArrowUpRight size={16} />
+                    </button>
+                  ) : (
+                    <button
+                      className="project-view-link"
+                      onClick={() => setShowDomainLLM(true)}
                     >
                       VIEW PROJECT <ArrowUpRight size={16} />
                     </button>
@@ -427,11 +446,15 @@ function App() {
           </svg>
         </a>
 
-        <p>DESIGNED & BUILT BY ARJUN AJAI · 2026</p>
-        <a href="#home">BACK TO TOP ↑</a>
+        <p>DESIGNED & BUILT BY ARJUN AJAI Â· 2026</p>
+        <a href="#home">BACK TO TOP â†‘</a>
       </footer>
     </main>
   )
 }
 
 export default App
+
+
+
+
